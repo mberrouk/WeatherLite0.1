@@ -1,6 +1,6 @@
 const app = document.querySelector('.weather-app');
 const temp = document.querySelector('.temp');
-const dateOutput = document.querySelector('.data');
+const dateOutput = document.querySelector('.date');
 const timeOutput = document.querySelector('.time');
 const conditionOutput = document.querySelector('.condition');
 const nameOutput = document.querySelector('.name');
@@ -43,7 +43,7 @@ form.addEventListener('submit', (e) => {
   /*Function that fetches and displays
   all the data from the Weather API
   (We will write it soon) */
-  fetchweatherData();
+  fetchWeatherData();
   //Remove all text from the input field
   search.value = "";
   //Fage out the app (simple animation)
@@ -57,23 +57,30 @@ form.addEventListener('submit', (e) => {
 /*(Monday, Tuesday, Friday...) from a date (12 03 2021)
 We will use this function Later*/
 function dayOfTheWeek (day, month, year) {
-const weekday = [
-"Sunday",
-"Monday",
-"Tuesday",
-"Wednesday",
-"Thursday",
-"Friday",
-"Saturday"
-];
-return weekday[new Date(`${day}/${month}/${year}`).getDay()];
+  const weekday = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday"
+  ];
+    // Create a new Date object using the provided day, month, and year
+    const date = new Date(`${month}/${day}/${year}`);
+
+    // Use the getDay() method to get the numerical representation of the day of the week
+    const dayOfWeekIndex = date.getDay();
+
+    // Use the day of the week index to access the corresponding day name from the weekday array
+    return weekday[dayOfWeekIndex];
 };
 /*Function that fetches and displays
 the data from the weather API*/
 function fetchWeatherData() {
   /*Fetch the data and dynamicaly add the city name with template LitearaLs*/
-  fetch(`http://api.weatherapi.com/
-  v1/current.jason?key=tt=${cityInput}`)
+  fetch(`http://api.weatherapi.com/v1/current.json?key=161605b56a64407da5501216242903&q=${cityInput}`)
+  // fetch(`api.openweathermap.org/data/2.5/forecast?lat=35&lon=139&appid=09c8d59eea2cde983433803528cd8d5f`)
   /* take data json and convert it to a js object*/
   .then(response => response.json())
   .then(data => {
@@ -85,12 +92,13 @@ function fetchWeatherData() {
 
     /* Get data and time */
     const date = data.location.localtime;
-    const y = parseInt(data.substr(0, 4));
-    const m = parseInt(data.substr(5, 2));
-    const d = parseInt(data.substr(8, 2));
+    const y = parseInt(date.substr(0, 4));
+    const m = parseInt(date.substr(5, 2));
+    const d = parseInt(date.substr(8, 2));
     const time = date.substr(11);
 
     /* formatting */
+    console.log(`${dayOfTheWeek(d, m, y)}`);
     dateOutput.innerHTML = `${dayOfTheWeek(d, m, y)} ${d}, ${m} ${y}`;
     timeOutput.innerHTML = time;
 
@@ -115,6 +123,8 @@ function fetchWeatherData() {
       if (!data.current.is_day) {
         timeOfDay = "night";
       }
+      console.log(code);
+
       if (code == 1000) {
         /*change background */
         app.style.backgroundImage = `url(./images/${timeOfDay}/bc.jpg)`;
@@ -124,7 +134,6 @@ function fetchWeatherData() {
           btn.style.background = "#181e27";
         }
       }
-
       /* cloudy weather */
       else if (
         code == 1003 ||
@@ -139,9 +148,10 @@ function fetchWeatherData() {
         code == 1279 ||
         code == 1282 
       ){
-        app.style.backgroundImage =
-          url("./images/${timeOfDay}/cloudy.jpg");
-        btn.style.background ="#fa6d1b";
+        console.log("test cloud");
+        app.style.backgroundImage = `
+          url("./images/${timeOfDay}/cloudy.jpeg")`;
+          btn.style.background ="#fa6d1b";
         if(timeOfDay == "night") {
         btn.style.background = "#181e27";
         }
@@ -167,7 +177,7 @@ function fetchWeatherData() {
         code == 1252
         ) {
           app.style.backgroundImage = `
-          url("./images/${timeOfDay}/rainy.jpg")`;
+          url("./images/${timeOfDay}/rainy.jpeg")`;
         btn.style.background ="#647d75";
         if(timeOfDay == "night") {
         btn.style.background = "#325c80";
