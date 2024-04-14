@@ -30,7 +30,7 @@ cities.forEach((city) => {
     });
 })
 
-//Add submit event to the form
+/* Add submit event to the form */
 form.addEventListener('submit', (e) => {
   /*If the input field (search bar)
   is empty, throw an alert*/
