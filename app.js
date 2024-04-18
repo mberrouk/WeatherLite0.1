@@ -1,3 +1,4 @@
+/*items from html*/
 const app = document.querySelector('.weather-app');
 const temp = document.querySelector('.temp');
 const dateOutput = document.querySelector('.date');
@@ -22,10 +23,9 @@ cities.forEach((city) => {
     //Change from default city to the clicked one
     cityInput = e.target.innerHTML;
     /*Function that fetches and displays
-    all the data from the Weather API
-    (We will write it soon) */
+    all the data from the Weather API*/
     fetchWeatherData();
-    //Fade out the app (simple animation)
+    //simple animation
     app.style.opacity = "0";
     });
 })
@@ -41,12 +41,11 @@ form.addEventListener('submit', (e) => {
   one written in the input field*/
   cityInput = search.value;
   /*Function that fetches and displays
-  all the data from the Weather API
-  (We will write it soon) */
+  all the data from the Weather API*/
   fetchWeatherData();
   //Remove all text from the input field
   search.value = "";
-  //Fage out the app (simple animation)
+  //simple animation
   app.style.opacity = "0";
 }
 
@@ -54,8 +53,7 @@ form.addEventListener('submit', (e) => {
   e.preventDefault();
 });
 
-/*(Monday, Tuesday, Friday...) from a date (12 03 2021)
-We will use this function Later*/
+/*from a date (12 03 2021)*/
 function dayOfTheWeek (day, month, year) {
   const weekday = [
   "Sunday",
@@ -80,11 +78,9 @@ the data from the weather API*/
 function fetchWeatherData() {
   /*Fetch the data and dynamicaly add the city name with template LitearaLs*/
   fetch(`http://api.weatherapi.com/v1/current.json?key=161605b56a64407da5501216242903&q=${cityInput}`)
-  // fetch(`api.openweathermap.org/data/2.5/forecast?lat=35&lon=139&appid=09c8d59eea2cde983433803528cd8d5f`)
   /* take data json and convert it to a js object*/
   .then(response => response.json())
   .then(data => {
-    console.log(data); /* printing */
 
     /*adding to page*/
     temp.innerHTML = data.current.temp_c + "&#176;";
@@ -106,7 +102,7 @@ function fetchWeatherData() {
 
     const iconId = data.current.condition.icon.substr(
       "//cdn.weatherapi.com/weather/64x64/".length);
-      /*reformate icon !!! icons dir !!! */
+	  /* reformat icons*/
       icon.src = "./icons/" + iconId;
 
       /* Add the weather details to the page*/
@@ -155,7 +151,7 @@ function fetchWeatherData() {
         if(timeOfDay == "night") {
         btn.style.background = "#181e27";
         }
-        /*"And rain"*/
+        /*rain*/
         } else if (
         code == 1063 ||
         code == 1069 ||
