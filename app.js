@@ -77,6 +77,8 @@ function dayOfTheWeek (day, month, year) {
 the data from the weather API*/
 function fetchWeatherData() {
   /*Fetch the data and dynamicaly add the city name with template LitearaLs*/
+  // Replace 'YOUR_API_KEY' with your OpenWeather API key
+  const apiKey = '161605b56a64407da5501216242903&q';
   fetch(`http://api.weatherapi.com/v1/current.json?key=161605b56a64407da5501216242903&q=${cityInput}`)
   /* take data json and convert it to a js object*/
   .then(response => response.json())
