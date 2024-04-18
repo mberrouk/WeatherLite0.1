@@ -2,7 +2,6 @@
 
 Certainly! Here's the updated README with the project name "WeatherLite":
 
-```
 # WeatherLite
 
 WeatherLite is a lightweight web application designed to provide weather information for a specific location. With a simple and intuitive user interface, users can easily retrieve accurate weather data by entering their desired location in the search bar.
@@ -34,7 +33,7 @@ WeatherLite uses the OpenWeather API to fetch weather data. To make use of this 
 ```javascript
 // Replace 'YOUR_API_KEY' with your OpenWeather API key
 const apiKey = 'YOUR_API_KEY';
-
+```
 ## Contributing
 
 Contributions are welcome! If you would like to contribute to WeatherLite, please follow these steps:
